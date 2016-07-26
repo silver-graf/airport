@@ -29,8 +29,38 @@ namespace airport
             public FlightStatus Status;
 
         }
+        
+
+        public static void AirlinesInit(ref Flight [] air )
+        {
+            air = new Flight[] { }; 
+
+
+
+
+        }
+        public static void AirlinesAdd()
+        {
+
+        }
+        public static void AirlinesDelete()
+        {
+
+        }
+
+        private static Flight[] airlines;
+
         static void Main(string[] args)
         {
+            
+            AirlinesInit(ref airlines);
+
+            for(;;)
+            {
+
+            }
+            
+            
 
 
         }
