@@ -19,8 +19,14 @@ namespace airport
             Canceled,           
             InFlight
         }
-        public struct flight
-        { 
+        public struct Flight
+        {
+            public DateTime DocDate;
+            public int Number;
+            public string City;
+            public string Airline;
+            public int Terminal;
+            public FlightStatus Status;
 
         }
         static void Main(string[] args)
