@@ -8,7 +8,7 @@ namespace airport
 {
     class Program
     {
-        
+
         public enum FlightStatus
         {
             CheckIn,
@@ -16,7 +16,7 @@ namespace airport
             Arrived,
             DepartedAt,
             Unknown,
-            Canceled,           
+            Canceled,
             InFlight
         }
         public struct Flight
@@ -29,11 +29,11 @@ namespace airport
             public FlightStatus Status;
 
         }
-        
 
-        public static void AirlinesInit(ref Flight [] air )
+
+        public static void AirlinesInit(ref Flight[] air)
         {
-            air = new Flight[] { }; 
+            air = new Flight[] { };
 
 
 
@@ -52,15 +52,16 @@ namespace airport
 
         static void Main(string[] args)
         {
-            
+
             AirlinesInit(ref airlines);
 
-            for(;;)
+            for (;;)
             {
+                111
 
             }
-            
-            
+
+
 
 
         }
