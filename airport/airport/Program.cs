@@ -6,64 +6,53 @@ using System.Threading.Tasks;
 
 namespace airport
 {
+    public enum FlightStatus
+    {
+        CheckIn,
+        GateClossed,
+        Arrived,
+        DepartedAt,
+        Unknown,
+        Canceled,
+        InFlight
+    }
+    public struct Flight
+    {
+        public DateTime docDate;
+        public int Number;
+        public string CityFrom;
+        public string CityTo;
+        public string Airline;
+        public int Terminal;
+        public FlightStatus status;
+        public override string ToString()
+        {
+            return $"number:{Number} ";
+        }
+    }
+
     class Program
     {
 
-        public enum FlightStatus
+        Flight[] arrivals;
+        private static void FlightInit(ref Flight[] f)
         {
-            CheckIn,
-            GateClossed,
-            Arrived,
-            DepartedAt,
-            Unknown,
-            Canceled,
-            InFlight
-        }
-        public struct Flight
-        {
-            public DateTime DocDate;
-            public int Number;
-            public string City;
-            public string Airline;
-            public int Terminal;
-            public FlightStatus Status;
+            f = new Flight[] { };
 
         }
-
-
-        public static void AirlinesInit(ref Flight[] air)
-        {
-            air = new Flight[] { };
-
-
-
-
-        }
-        public static void AirlinesAdd()
-        {
-
-        }
-        public static void AirlinesDelete()
-        {
-
-        }
-
-        private static Flight[] airlines;
 
         static void Main(string[] args)
         {
 
-            AirlinesInit(ref airlines);
+
+
+
+
 
             for (;;)
             {
-                111
 
             }
-
-
-
-
         }
     }
 }
