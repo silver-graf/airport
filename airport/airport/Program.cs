@@ -8,7 +8,7 @@ namespace airport
 {
     public enum FlightStatus
     {
-        CheckIn,
+        CheckIn ,
         GateClossed,
         Arrived,
         DepartedAt,
@@ -18,7 +18,8 @@ namespace airport
     }
     public struct Flight
     {
-        public DateTime docDate;
+        public DateTime TimeStart;
+        public DateTime TimeEnd;
         public int Number;
         public string flight;
         public string CityFrom;
@@ -28,7 +29,7 @@ namespace airport
         public FlightStatus status;
         public override string ToString()
         {
-            return $"number:{Number} CityFrom: {CityFrom} CityTo {CityTo} docDate: {docDate} Terminal: {Terminal} status: {status} flight: {flight} Airline: {Airline}";
+            return $"number:{Number} | CityFrom: {CityFrom} | CityTo: {CityTo} | TimeStart: {TimeStart} | TimeEnd: {TimeEnd} | Terminal: {Terminal} | status: {status} | flight: {flight} | Airline: {Airline}";
         }
     }
 
@@ -39,11 +40,14 @@ namespace airport
 
         private static void FlightInit(ref Flight[] f)
         {
-            f = new Flight[10] ;
+            DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            
+            f = new Flight[10];
             f[0].Airline = "Atlasglobal Ukraine";
             f[0].CityFrom = "bahdad";
             f[0].CityTo = "kharkiv";
-            f[0].docDate = DateTime.Now; //Convert.ToDateTime( "29.07.2016");
+            f[0].TimeStart = DateTime.Now;
+            f[0].TimeEnd = f[0].TimeStart.AddHours(7);
             f[0].flight = "UF 4201";
             f[0].status = FlightStatus.CheckIn;
             f[0].Number = 0;
@@ -52,34 +56,38 @@ namespace airport
             f[1].Airline = "Atlasglobal Ukraine";
             f[1].CityFrom = "kharkiv";
             f[1].CityTo = "Amsterdam";
-            f[1].docDate = Convert.ToDateTime("29.07.2016");
+            f[1].TimeStart = date.AddHours(7);
+            f[1].TimeEnd = f[1].TimeStart.AddHours(5);
             f[1].flight = "U 20213";
-            f[1].status = FlightStatus.Arrived;
+            f[1].status = FlightStatus.CheckIn;
             f[1].Number = 1;
             f[1].Terminal = 1;
 
             f[2].Airline = "Atlasglobal Ukraine";
             f[2].CityFrom = "kharkiv";
             f[2].CityTo = "Antalia";
-            f[2].docDate = Convert.ToDateTime("29.07.2016");
+            f[2].TimeStart = DateTime.Now; ;
+            f[2].TimeEnd = f[2].TimeStart.AddHours(7);
             f[2].flight = "U 2053";
-            f[2].status = FlightStatus.Arrived;
+            f[2].status = FlightStatus.DepartedAt;
             f[2].Number = 2;
             f[2].Terminal = 1;
 
             f[3].Airline = "Atlasglobal Ukraine";
             f[3].CityFrom = "kharkiv";
             f[3].CityTo = "Lviv";
-            f[3].docDate = Convert.ToDateTime("29.07.2016");
+            f[3].TimeStart = date.AddHours(5);
+            f[3].TimeEnd = f[3].TimeStart.AddHours(7);
             f[3].flight = "U 2613";
-            f[3].status = FlightStatus.Arrived;
+            f[3].status = FlightStatus.CheckIn;
             f[3].Number = 3;
             f[3].Terminal = 2;
 
             f[4].Airline = "UmAir";
             f[4].CityFrom = "Lviv";
             f[4].CityTo = "Minsk";
-            f[4].docDate = Convert.ToDateTime("29.07.2016");
+            f[4].TimeStart = date.AddHours(-2);
+            f[4].TimeEnd = f[4].TimeStart.AddHours(-7);
             f[4].flight = "U 7213";
             f[4].status = FlightStatus.Arrived;
             f[4].Number = 4;
@@ -88,7 +96,8 @@ namespace airport
             f[5].Airline = "UmAir";
             f[5].CityFrom = "Kyiv";
             f[5].CityTo = "Stambul";
-            f[5].docDate = Convert.ToDateTime("29.07.2016");
+            f[5].TimeStart = date.AddHours(-1);
+            f[5].TimeEnd = f[5].TimeStart.AddHours(-8);
             f[5].flight = "U 2813";
             f[5].status = FlightStatus.Arrived;
             f[5].Number = 5;
@@ -97,54 +106,195 @@ namespace airport
             f[6].Airline = "UIA";
             f[6].CityFrom = "kharkiv";
             f[6].CityTo = "Kyiv";
-            f[6].docDate = Convert.ToDateTime("29.07.2016");
+            f[6].TimeStart = date.AddHours(1);
+            f[6].TimeEnd = f[6].TimeStart.AddHours(7);
             f[6].flight = "U 2003";
-            f[6].status = FlightStatus.Arrived;
+            f[6].status = FlightStatus.CheckIn;
             f[6].Number = 6;
             f[6].Terminal = 2;
-        
+
             f[7].Airline = "UIA";
             f[7].CityFrom = "kharkiv";
             f[7].CityTo = "Beirut";
-            f[7].docDate = Convert.ToDateTime("29.07.2016");
+            f[7].TimeStart = date.AddHours(-6);
+            f[7].TimeEnd = f[7].TimeStart.AddHours(7);
             f[7].flight = "UG 23";
-            f[7].status = FlightStatus.Arrived;
+            f[7].status = FlightStatus.InFlight;
             f[7].Number = 7;
             f[7].Terminal = 4;
 
             f[8].Airline = "Bravo Airways";
             f[8].CityFrom = "Kyiv";
             f[8].CityTo = "Milan";
-            f[8].docDate = Convert.ToDateTime("29.07.2016");
+            f[8].TimeStart = date.AddHours(2);
+            f[8].TimeEnd = f[8].TimeStart.AddHours(7);
             f[8].flight = "E 20";
-            f[8].status = FlightStatus.Arrived;
+            f[8].status = FlightStatus.CheckIn;
             f[8].Number = 8;
             f[8].Terminal = 3;
-        
+
             f[9].Airline = "Bravo Airways";
             f[9].CityFrom = "Izmir";
             f[9].CityTo = "kharkiv";
-            f[9].docDate = Convert.ToDateTime("29.07.2016");
+            f[9].TimeStart = DateTime.MinValue;
+            f[9].TimeEnd = f[9].TimeStart;
             f[9].flight = "T 4553";
-            f[9].status = FlightStatus.Arrived;
+            f[9].status = FlightStatus.Canceled;
             f[9].Number = 9;
             f[9].Terminal = 5;
 
         }
 
+        public static void PrintFlyght(Flight [] flyght  )
+        {
+            foreach (Flight f in  flyght)
+            {
+                Console.WriteLine(f.ToString());
+                Console.WriteLine("--------------------------");
+            }
+        }
+         static void InputFlyght()
+        {
+            Flight[] f = new Flight[arrivals.Length + 1];
+            Flight newfly;
+            Console.WriteLine("enter airlines");
+            newfly.Airline = Console.ReadLine();
+            Console.WriteLine("enter City From air bus heading off");
+            newfly.CityFrom = Console.ReadLine();
+            Console.WriteLine("enter the city, where the air is directed");
+            newfly.CityTo = Console.ReadLine();
+            Console.WriteLine("enter flight");
+            newfly.flight = Console.ReadLine();
+            Console.WriteLine(@"enter the status:
+1) CheckIn ,
+2) GateClossed,
+3) Arrived,
+4) DepartedAt,
+5) Unknown,
+6) Canceled,
+7) InFlight
+                ");
+            newfly.status = (FlightStatus)int.Parse(Console.ReadLine());
+            Console.WriteLine("enter the Terminal");
+            newfly.Terminal = int.Parse(Console.ReadLine());
+            Console.WriteLine("enter data and time start (format  dd/mm/yyyy hh:mm:ss)");
+            newfly.TimeStart = DateTime.Parse(Console.ReadLine());
+            Console.WriteLine("enter Time End of flyght");
+            newfly.TimeEnd = DateTime.Parse(Console.ReadLine());
+            Console.WriteLine("enter number");
+            bool flag ;
+            int number = int.Parse(Console.ReadLine());
+            for (;;)
+            {
+                flag = false;
+                foreach (Flight fl in arrivals)
+                {
+
+                    if (fl.Number == number)
+                    {
+                        flag = true;
+                        Console.WriteLine("enter uniq number");
+                        break;
+                    }
+
+                }
+                if (flag)
+                {
+                    number = int.Parse(Console.ReadLine());
+                }
+                else
+                {
+                    break;
+                }
+
+            }
+            newfly.Number = int.Parse(Console.ReadLine());
+            f[f.Length - 1] = newfly;
+            arrivals = f;
+        }
+        public static void DeleteFlyght(int number)
+        {
+
+            if (number <arrivals.Length)
+            {
+
+                Console.WriteLine($"are you sure want delete y/n");
+                ConsoleKeyInfo cki = Console.ReadKey();
+                if ( cki.ToString() == "y")
+                {
+                    int y = 0;
+                    Flight[] temp = new Flight[arrivals.Length - 1];
+                    for (int i =0; i<arrivals.Length;i++)
+                    {
+                        if(arrivals[i].Number != number)
+                        {
+                            temp[y] = arrivals[i];
+                            y++;
+                        }
+                       
+                    }
+                }
+            }
+           
+        }
+
         static void Main(string[] args)
         {
+            Console.ForegroundColor = ConsoleColor.Red;
+            
+            Console.SetWindowPosition(Console.WindowLeft, 0);
+            Console.SetWindowSize(Console.LargestWindowWidth,Console.WindowHeight);
+            Console.WriteLine("AIRPORT");
+            Console.ResetColor();
             FlightInit(ref arrivals);
+            PrintFlyght(arrivals);
+            int choice;
+            
 
 
 
+            for (;;)
+            {
+                Console.WriteLine(@"Select, what you want to do:
+1) print information
+2) input flyght
+3) edit flyght
+4) delete flyght
+5) search flyght
+5) exit ");
+                int.TryParse(Console.ReadLine(),out choice);
+                switch (choice)
+                {
+                    case (1):
+                        PrintFlyght(arrivals);
+                        break;
+                    case (2):
+                        InputFlyght();
+                        break;
+                    case (3):
+                        DateTime a;
+                        a = DateTime.Parse(Console.ReadLine());
+                        Console.WriteLine(a);
+                        break;
+                    case (4):
+                        Console.WriteLine("enter the number, what flyght are you want delete");
+                        int del = int.Parse(Console.ReadLine());
+                        DeleteFlyght(del);
+                        break;
+                    case (5):
+                        Environment.Exit(0);
+                        break;
 
+                    default: 
+                        break;
+                }
 
-            //for (;;)
-            //{
+                Console.ReadLine();    
 
-            //}
+            }
 
         }
+
+     
     }
 }
