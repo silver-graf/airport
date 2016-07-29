@@ -8,7 +8,7 @@ namespace airport
 {
     public enum FlightStatus
     {
-        CheckIn ,
+        CheckIn,
         GateClossed,
         Arrived,
         DepartedAt,
@@ -41,7 +41,7 @@ namespace airport
         private static void FlightInit(ref Flight[] f)
         {
             DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-            
+
             f = new Flight[10];
             f[0].Airline = "Atlasglobal Ukraine";
             f[0].CityFrom = "bahdad";
@@ -145,15 +145,15 @@ namespace airport
 
         }
 
-        public static void PrintFlyght(Flight [] flyght  )
+        public static void PrintFlyght(Flight[] flyght)
         {
-            foreach (Flight f in  flyght)
+            foreach (Flight f in flyght)
             {
                 Console.WriteLine(f.ToString());
                 Console.WriteLine("--------------------------");
             }
         }
-         static void InputFlyght()
+        static void InputFlyght()
         {
             Flight[] f = new Flight[arrivals.Length + 1];
             Flight newfly;
@@ -182,7 +182,7 @@ namespace airport
             Console.WriteLine("enter Time End of flyght");
             newfly.TimeEnd = DateTime.Parse(Console.ReadLine());
             Console.WriteLine("enter number");
-            bool flag ;
+            bool flag;
             int number = int.Parse(Console.ReadLine());
             for (;;)
             {
@@ -215,41 +215,157 @@ namespace airport
         public static void DeleteFlyght(int number)
         {
 
-            if (number <arrivals.Length)
+            if (number < arrivals.Length)
             {
 
                 Console.WriteLine($"are you sure want delete y/n");
                 ConsoleKeyInfo cki = Console.ReadKey();
-                if ( cki.ToString() == "y")
+                if (cki.ToString() == "y")
                 {
                     int y = 0;
                     Flight[] temp = new Flight[arrivals.Length - 1];
-                    for (int i =0; i<arrivals.Length;i++)
+                    for (int i = 0; i < arrivals.Length; i++)
                     {
-                        if(arrivals[i].Number != number)
+                        if (arrivals[i].Number != number)
                         {
                             temp[y] = arrivals[i];
                             y++;
                         }
-                       
+
                     }
                 }
             }
-           
+
+        }
+
+        private static void EditFlyght(int edit)
+        {
+            bool flag = true;
+            for (int i = 0; i < arrivals.Length; i++)
+            {
+                if (arrivals[i].Number == edit)
+                {
+                    flag = false;
+
+                    Console.WriteLine($"enter airlines old {arrivals[i].Airline}");
+                    arrivals[i].Airline = Console.ReadLine();
+                    Console.WriteLine($"enter City From air bus heading off old {arrivals[i].CityFrom}");
+                    arrivals[i].CityFrom = Console.ReadLine();
+                    Console.WriteLine($"enter the city, where the air is directed old {arrivals[i].CityTo}");
+                    arrivals[i].CityTo = Console.ReadLine();
+                    Console.WriteLine($"enter flight old { arrivals[i].flight}");
+                    arrivals[i].flight = Console.ReadLine();
+                    Console.WriteLine(@"enter the status:
+1) CheckIn ,
+2) GateClossed,
+3) Arrived,
+4) DepartedAt,
+5) Unknown,
+6) Canceled,
+7) InFlight
+                ");
+                    arrivals[i].status = (FlightStatus)int.Parse(Console.ReadLine());
+                    Console.WriteLine($"enter the Terminal old {arrivals[i].Terminal}");
+                    arrivals[i].Terminal = int.Parse(Console.ReadLine());
+                    Console.WriteLine($"enter data and time start (format  dd/mm/yyyy hh:mm:ss) old {arrivals[i].TimeStart}");
+                    arrivals[i].TimeStart = DateTime.Parse(Console.ReadLine());
+                    Console.WriteLine($"enter Time End of flyght old {arrivals[i].TimeEnd}");
+                    arrivals[i].TimeEnd = DateTime.Parse(Console.ReadLine());
+                }
+            }
+            if (flag)
+            {
+                Console.WriteLine("wrong number");
+            }
+        }
+
+        private static void SearchFlyght()
+        {
+            Console.WriteLine(@"Please choose one of the following menu items:
+                1. Search by number;
+                2. Search by time of arrival/departure;                
+                3. Search by city start;
+                4. Search by city end;   
+                5. Search all flights in this hour;");
+            int choice = int.Parse(Console.ReadLine());
+            switch (choice)
+            {
+                case (1):
+                    Console.WriteLine("enter number");
+                    int num = int.Parse(Console.ReadLine());
+                    for (int i = 0; i < arrivals.Length; i++)
+                    {
+                        if (arrivals[i].Number == num)
+                        {
+                            Console.WriteLine(arrivals[i].ToString());
+                        }
+                    }
+                            break;
+                case (2):
+                    Console.WriteLine("enter start time to find ");
+                    DateTime start = DateTime.Parse(Console.ReadLine());
+                    Console.WriteLine("enter end time to find ");
+                    DateTime end = DateTime.Parse(Console.ReadLine());
+                    for (int i = 0; i < arrivals.Length; i++)
+                    {
+                        if (arrivals[i].TimeStart == start || arrivals[i].TimeEnd == end )
+                        {
+                            Console.WriteLine(arrivals[i].ToString());
+                        }
+                    }
+                    break;
+                case (3):
+                    Console.WriteLine("enter city start");
+                    string cityStart =(Console.ReadLine());
+                    for (int i = 0; i < arrivals.Length; i++)
+                    {
+                        if (arrivals[i].CityFrom == cityStart)
+                        {
+                            Console.WriteLine(arrivals[i].ToString());
+                        }
+                    }
+                    break;
+                case (4):
+                    Console.WriteLine("enter city start");
+                    string cityEnd = (Console.ReadLine());
+                    for (int i = 0; i < arrivals.Length; i++)
+                    {
+                        if (arrivals[i].CityTo == cityEnd)
+                        {
+                            Console.WriteLine(arrivals[i].ToString());
+                        }
+                    }
+                    break;
+                case (5):
+
+                    DateTime date = DateTime.Now;           
+                    
+                    for (int i = 0; i < arrivals.Length; i++)
+                    {
+                        if ( (date -  arrivals[i].TimeEnd).Hours < 1 || (date - arrivals[i].TimeStart).Hours < 1  )
+                        {
+                            Console.WriteLine(arrivals[i].ToString());
+                        }
+                    }
+                    break;
+
+            }
+
+
         }
 
         static void Main(string[] args)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            
+
             Console.SetWindowPosition(Console.WindowLeft, 0);
-            Console.SetWindowSize(Console.LargestWindowWidth,Console.WindowHeight);
+            Console.SetWindowSize(Console.LargestWindowWidth, Console.WindowHeight);
             Console.WriteLine("AIRPORT");
             Console.ResetColor();
             FlightInit(ref arrivals);
             PrintFlyght(arrivals);
             int choice;
-            
+
 
 
 
@@ -262,7 +378,7 @@ namespace airport
 4) delete flyght
 5) search flyght
 5) exit ");
-                int.TryParse(Console.ReadLine(),out choice);
+                int.TryParse(Console.ReadLine(), out choice);
                 switch (choice)
                 {
                     case (1):
@@ -272,9 +388,10 @@ namespace airport
                         InputFlyght();
                         break;
                     case (3):
-                        DateTime a;
-                        a = DateTime.Parse(Console.ReadLine());
-                        Console.WriteLine(a);
+
+                        Console.WriteLine("enter the number, what flyght are you want editing");
+                        int edit = int.Parse(Console.ReadLine());
+                        EditFlyght(edit);
                         break;
                     case (4):
                         Console.WriteLine("enter the number, what flyght are you want delete");
@@ -282,19 +399,23 @@ namespace airport
                         DeleteFlyght(del);
                         break;
                     case (5):
+                        SearchFlyght();
+                        break;
+
+                    case (6):
                         Environment.Exit(0);
                         break;
 
-                    default: 
+                    default:
                         break;
                 }
 
-                Console.ReadLine();    
+                Console.ReadLine();
 
             }
 
         }
 
-     
+
     }
 }
