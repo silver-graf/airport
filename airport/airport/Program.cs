@@ -182,15 +182,20 @@ namespace airport
             Console.WriteLine("enter Time End of flyght");
             newfly.TimeEnd = DateTime.Parse(Console.ReadLine());
             Console.WriteLine("enter number");
-            bool flag;
-            int number = int.Parse(Console.ReadLine());
+            bool flag = false;
+            int number =-1;
+            
             for (;;)
             {
-                flag = false;
+                if (flag == false)
+                {
+                    number = int.Parse(Console.ReadLine());
+                }
+                
                 foreach (Flight fl in arrivals)
                 {
 
-                    if (fl.Number == number)
+                    if (fl.Number == number )
                     {
                         flag = true;
                         Console.WriteLine("enter uniq number");
@@ -200,17 +205,15 @@ namespace airport
                 }
                 if (flag)
                 {
-                    number = int.Parse(Console.ReadLine());
-                }
-                else
-                {
                     break;
                 }
+                
 
             }
-            newfly.Number = int.Parse(Console.ReadLine());
+            //newfly.Number = int.Parse(Console.ReadLine());
             f[f.Length - 1] = newfly;
             arrivals = f;
+            PrintFlyght(arrivals);
         }
         public static void DeleteFlyght(int number)
         {
@@ -235,6 +238,7 @@ namespace airport
                     }
                 }
             }
+            PrintFlyght(arrivals);
 
         }
 
@@ -277,6 +281,7 @@ namespace airport
             {
                 Console.WriteLine("wrong number");
             }
+            PrintFlyght(arrivals);
         }
 
         private static void SearchFlyght()
@@ -362,8 +367,7 @@ namespace airport
             Console.SetWindowSize(Console.LargestWindowWidth, Console.WindowHeight);
             Console.WriteLine("AIRPORT");
             Console.ResetColor();
-            FlightInit(ref arrivals);
-            PrintFlyght(arrivals);
+            FlightInit(ref arrivals);            
             int choice;
 
 
