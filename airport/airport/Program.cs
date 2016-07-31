@@ -153,10 +153,16 @@ namespace airport
                 Console.WriteLine("--------------------------");
             }
         }
+
         static void InputFlyght()
         {
             Flight[] f = new Flight[arrivals.Length + 1];
-            Flight newfly;
+            for(int i =0; i<arrivals.Length; i++)
+            {
+                f[i] = arrivals[i];
+            }
+
+            Flight newfly = new Flight();
             Console.WriteLine("enter airlines");
             newfly.Airline = Console.ReadLine();
             Console.WriteLine("enter City From air bus heading off");
@@ -166,13 +172,13 @@ namespace airport
             Console.WriteLine("enter flight");
             newfly.flight = Console.ReadLine();
             Console.WriteLine(@"enter the status:
-1) CheckIn ,
-2) GateClossed,
-3) Arrived,
-4) DepartedAt,
-5) Unknown,
-6) Canceled,
-7) InFlight
+0) CheckIn ,
+1) GateClossed,
+2) Arrived,
+3) DepartedAt,
+4) Unknown,
+5) Canceled,
+6) InFlight
                 ");
             newfly.status = (FlightStatus)int.Parse(Console.ReadLine());
             Console.WriteLine("enter the Terminal");
@@ -203,14 +209,13 @@ namespace airport
                     }
 
                 }
-                if (flag)
+                if (flag == false)
                 {
                     break;
-                }
-                
+                }               
 
             }
-            //newfly.Number = int.Parse(Console.ReadLine());
+            newfly.Number = number;
             f[f.Length - 1] = newfly;
             arrivals = f;
             PrintFlyght(arrivals);
@@ -218,12 +223,13 @@ namespace airport
         public static void DeleteFlyght(int number)
         {
 
-            if (number < arrivals.Length)
+            
             {
 
                 Console.WriteLine($"are you sure want delete y/n");
                 ConsoleKeyInfo cki = Console.ReadKey();
-                if (cki.ToString() == "y")
+
+                if (cki.Key.ToString().ToUpper() == "y".ToUpper())
                 {
                     int y = 0;
                     Flight[] temp = new Flight[arrivals.Length - 1];
@@ -236,6 +242,7 @@ namespace airport
                         }
 
                     }
+                    arrivals = temp;
                 }
             }
             PrintFlyght(arrivals);
@@ -260,13 +267,13 @@ namespace airport
                     Console.WriteLine($"enter flight old { arrivals[i].flight}");
                     arrivals[i].flight = Console.ReadLine();
                     Console.WriteLine(@"enter the status:
-1) CheckIn ,
-2) GateClossed,
-3) Arrived,
-4) DepartedAt,
-5) Unknown,
-6) Canceled,
-7) InFlight
+0) CheckIn ,
+1) GateClossed,
+2) Arrived,
+3) DepartedAt,
+4) Unknown,
+5) Canceled,
+6) InFlight
                 ");
                     arrivals[i].status = (FlightStatus)int.Parse(Console.ReadLine());
                     Console.WriteLine($"enter the Terminal old {arrivals[i].Terminal}");
